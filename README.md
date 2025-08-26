@@ -5,7 +5,7 @@
 
 [![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.5-green)](https://spring.io/projects/spring-boot)
-[![Maven](https://img.shields.io/badge/Maven-3.9.0-orange)](https://maven.apache.org/)
+[![Maven](https://img.shields.io/badge/Maven-orange)](https://maven.apache.org/)
 
 Backend em **Java** utilizando **Spring Boot**, **Spring Data JPA** e API REST em **JSON** para gerenciamento de tarefas domésticas.
 
