@@ -1,0 +1,58 @@
+
+# Build / Maven / Gradle
+
+target/
+build/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+
+# Arquivos sensíveis
+
+application.properties
+application-dev.properties
+application-test.properties
+.env
+
+# Logs / Temporários
+
+*.log
+*.tmp
+*.bak
+*.swp
+*.class
+*.jar
+*.war
+
+# Arquivos do sistema
+
+.DS_Store
+Thumbs.db
