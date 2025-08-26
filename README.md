@@ -1,17 +1,17 @@
 
 
-```markdown
-# 🏠 Sistema de Organização de Tarefas Domésticas
 
-[![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.java.com/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.0-green)](https://spring.io/projects/spring-boot)
+ Sistema de Organização de Tarefas Domésticas
+
+[![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.java.com/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.5-green)](https://spring.io/projects/spring-boot)
 [![Maven](https://img.shields.io/badge/Maven-3.9.0-orange)](https://maven.apache.org/)
 
 Backend em **Java** utilizando **Spring Boot**, **Spring Data JPA** e API REST em **JSON** para gerenciamento de tarefas domésticas.
 
 
 
-## ⚡ Funcionalidades
+## Funcionalidades
 
 - CRUD de tarefas domésticas  
 - Listagem de tarefas por prioridade  
@@ -24,23 +24,21 @@ Backend em **Java** utilizando **Spring Boot**, **Spring Data JPA** e API REST e
 
 
 
-## 🛠 Tecnologias
+## Tecnologias
 
-- **Java 21**  
-- **Spring Boot 3**  
-- **Spring Data JPA / Hibernate**  
-- **Spring Web (REST API)**  
-- **H2 / PostgreSQL**  
-- **Maven**  
-- **JUnit 5**  
-- **Lombok**  
-- **JSON** para comunicação de dados
+- Java 21
+- Spring Boot 3
+- Spring Data JPA / Hibernate
+- Spring Web (REST API)  
+- H2 / PostgreSQL
+- Maven
+- JUnit 5
+- Lombok
+- JSON
 
 
 ## 📂 Estrutura do Projeto
-
-
-
+```markdown
 src/
 ├─ main/
 │  ├─ java/com/exemplo/tarefas/
@@ -53,6 +51,6 @@ src/
 │      ├─ application.properties # Configurações
 │      └─ data.sql / schema.sql   # Scripts opcionais de banco
 └─ test/
-└─ java/                    # Testes unitários e de integração
+└─ java/    # Testes unitários e de integração
 
 ```
