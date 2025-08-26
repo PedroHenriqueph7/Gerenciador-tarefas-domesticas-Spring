@@ -1,7 +1,7 @@
 
 
 
- Sistema de Organização de Tarefas Domésticas(Em desenvolvimento)
+ Sistema de Organização de Tarefas Domésticas(Em desenvolvimento...)
 
 [![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.5-green)](https://spring.io/projects/spring-boot)
