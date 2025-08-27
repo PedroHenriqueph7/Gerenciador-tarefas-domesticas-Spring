@@ -1,0 +1,48 @@
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities;
+
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.PriorityTarefa;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.StatusTarefa;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "tb_tarefa")
+public class Tarefa {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String task_name;
+
+    @Enumerated(EnumType.STRING)
+    private PriorityTarefa priorityTarefa;
+
+    @Enumerated(EnumType.STRING)
+    private StatusTarefa statusTarefa;
+
+    @ManyToOne
+    @JoinColumn(name = "responsible_id", nullable = false)
+    private Pessoa responsible;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoriaTarefa category;
+
+}
