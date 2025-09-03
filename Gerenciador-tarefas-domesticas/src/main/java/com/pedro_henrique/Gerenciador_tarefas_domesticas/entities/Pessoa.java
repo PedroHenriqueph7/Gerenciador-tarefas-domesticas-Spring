@@ -2,6 +2,7 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
     private int age;
 

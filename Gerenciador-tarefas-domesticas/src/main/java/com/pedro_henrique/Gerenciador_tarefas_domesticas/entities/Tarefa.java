@@ -1,11 +1,14 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.PriorityTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.StatusTarefa;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,6 +35,7 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String task_name;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +48,8 @@ public class Tarefa {
     @JoinColumn(name = "responsible_id", nullable = false)
     private Pessoa responsible;
 
-    @ManyToOne
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne //(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private CategoriaTarefa category;
 
