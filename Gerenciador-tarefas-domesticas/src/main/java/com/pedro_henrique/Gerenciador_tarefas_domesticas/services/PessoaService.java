@@ -16,8 +16,8 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     @Transactional
-    public void inserirPessoa(PessoaDTO objeto) {
-        Pessoa entity = Pessoa.fromDTO(objeto);
+    public void cadastrarPessoa(PessoaDTO objeto) {
+        Pessoa entity = new Pessoa(objeto.getId(), objeto.getName(), objeto.getAge());
         pessoaRepository.save(entity);
     }
 

@@ -1,12 +1,9 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Tarefa;
-import java.util.List;
+
 
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {

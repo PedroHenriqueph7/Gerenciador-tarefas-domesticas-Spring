@@ -1,7 +1,5 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaDTO;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +17,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
 @Entity
 @Table(name = "tb_pessoa")
 public class Pessoa {
@@ -33,7 +30,4 @@ public class Pessoa {
     private String name;
     private int age;
 
-    public static Pessoa fromDTO(PessoaDTO objetoDTO) { 
-        return new Pessoa(objetoDTO.getId(), objetoDTO.getName(), objetoDTO.getAge());
-    }
 }

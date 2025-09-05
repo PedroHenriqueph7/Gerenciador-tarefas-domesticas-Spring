@@ -22,7 +22,7 @@ public class PessoaController {
 
     @PostMapping(value = "/pessoa")
     public void inserirPessoa(@RequestBody  PessoaDTO objetoBody) {
-        pessoaService.inserirPessoa(objetoBody);
+        pessoaService.cadastrarPessoa(objetoBody);
     }
 
     @GetMapping(value = "/{id}")
