@@ -9,6 +9,7 @@ import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Tarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.CategoriaNaoEncontradaException;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.PessoaNaoEncontradaException;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.TarefaNaoEncontrada;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.CategoriaTarefaRepository;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.PessoaRepository;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.TarefaRepository;
@@ -51,7 +52,7 @@ public class TarefaService {
     @Transactional
     public void deletarTarefa(Integer id){
         Tarefa tarefa = tarefaRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Tarefa não encontrada no Banco de Dados!"));
+        .orElseThrow(() -> new TarefaNaoEncontrada("Tarefa não encontrada no Banco de Dados!"));
 
         tarefaRepository.deleteById(tarefa.getId());
     }

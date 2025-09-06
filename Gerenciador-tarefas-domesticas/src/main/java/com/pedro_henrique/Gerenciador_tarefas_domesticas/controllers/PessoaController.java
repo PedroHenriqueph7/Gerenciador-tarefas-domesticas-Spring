@@ -1,5 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaDTO;
-
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.PessoaService;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -30,4 +34,10 @@ public class PessoaController {
     public void deletarPessoa(@PathVariable Integer id) {
         pessoaService.deletarPessoa(id);
     }
+
+    @GetMapping()
+    public List<PessoaResponseDTO> buscarPessoas() {
+        return pessoaService.buscarPessoas();
+    }
+    
 }
