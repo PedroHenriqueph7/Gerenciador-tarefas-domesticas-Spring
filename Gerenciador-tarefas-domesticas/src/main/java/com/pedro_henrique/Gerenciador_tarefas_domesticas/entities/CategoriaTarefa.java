@@ -39,4 +39,5 @@ public class CategoriaTarefa {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Tarefa> tarefas = new HashSet<>();
+
 }
