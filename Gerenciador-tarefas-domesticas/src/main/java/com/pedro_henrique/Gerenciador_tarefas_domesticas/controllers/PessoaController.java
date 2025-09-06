@@ -1,6 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,8 @@ public class PessoaController {
         pessoaService.cadastrarPessoa(objetoBody);
     }
 
-    @GetMapping(value = "/{id}")
-    public PessoaResponseDTO buscarResponsavel(@PathVariable Integer id) {
-        return pessoaService.buscarResponsavel(id);
+    @DeleteMapping(value = "/{id}")
+    public void deletarPessoa(@PathVariable Integer id) {
+        pessoaService.deletarPessoa(id);
     }
 }
