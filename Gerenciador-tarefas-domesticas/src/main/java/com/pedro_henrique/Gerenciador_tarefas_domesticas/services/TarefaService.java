@@ -47,4 +47,12 @@ public class TarefaService {
         
         tarefaRepository.save(tarefa);
     }
+
+    @Transactional
+    public void deletarTarefa(Integer id){
+        Tarefa tarefa = tarefaRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Tarefa não encontrada no Banco de Dados!"));
+
+        tarefaRepository.deleteById(tarefa.getId());
+    }
 }

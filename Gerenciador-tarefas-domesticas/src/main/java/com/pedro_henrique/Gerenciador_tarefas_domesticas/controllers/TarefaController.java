@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.TarefaRequestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.TarefaService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -22,4 +25,8 @@ public class TarefaController {
         tarefaService.cadastrarTarefa(objetoDto);
     }
     
+    @DeleteMapping(value = "/{id}")
+    public void deletarTarefa(@PathVariable Integer id) {
+        tarefaService.deletarTarefa(id);
+    }
 }
