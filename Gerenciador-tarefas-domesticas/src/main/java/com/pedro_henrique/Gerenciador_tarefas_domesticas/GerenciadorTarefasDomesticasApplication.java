@@ -9,5 +9,4 @@ public class GerenciadorTarefasDomesticasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GerenciadorTarefasDomesticasApplication.class, args);
 	}
-
 }

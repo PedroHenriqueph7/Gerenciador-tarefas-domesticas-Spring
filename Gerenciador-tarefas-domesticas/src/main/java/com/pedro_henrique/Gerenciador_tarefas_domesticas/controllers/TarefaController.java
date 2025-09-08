@@ -1,6 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,8 @@ public class TarefaController {
     }
     
     @DeleteMapping(value = "/{id}")
-    public void deletarTarefa(@PathVariable Integer id) {
+    public ResponseEntity<String> deletarTarefa(@PathVariable Integer id) {
         tarefaService.deletarTarefa(id);
+        return ResponseEntity.ok("Tarefa Deletada com sucesso!");
     }
 }

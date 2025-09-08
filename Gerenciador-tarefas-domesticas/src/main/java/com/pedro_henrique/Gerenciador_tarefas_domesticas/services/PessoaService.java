@@ -28,7 +28,7 @@ public class PessoaService {
     public void deletarPessoa(Integer id) {
 
        Pessoa pessoa = pessoaRepository.findById(id)
-       .orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa não encontrada no Banco de Dados"));
+       .orElseThrow(() -> new PessoaNaoEncontradaException());
 
        pessoaRepository.deleteById(pessoa.getId());
     
