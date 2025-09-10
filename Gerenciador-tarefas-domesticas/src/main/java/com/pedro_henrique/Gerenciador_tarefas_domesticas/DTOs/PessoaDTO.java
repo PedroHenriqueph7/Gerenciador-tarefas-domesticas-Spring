@@ -1,7 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
-
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +12,10 @@ import lombok.NoArgsConstructor;
 public class PessoaDTO {
     
     private Integer id;
+    @NotBlank(message = "O nome é obrigátorio")
     private String name;
-    private int age;
 
-    public PessoaDTO(Pessoa entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.age = entity.getAge();
-    }
+    @Min(value = 10)
+    private int age;
 
 }

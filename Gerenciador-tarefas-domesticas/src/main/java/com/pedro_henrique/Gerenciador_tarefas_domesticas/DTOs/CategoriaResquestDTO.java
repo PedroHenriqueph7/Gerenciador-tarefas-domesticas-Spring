@@ -1,6 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs;
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class CategoriaResquestDTO {
     
     private Integer id;
+    
+    @NotBlank(message = "O Campo nome é obrigatorio")
     private String category_name;
 
 }

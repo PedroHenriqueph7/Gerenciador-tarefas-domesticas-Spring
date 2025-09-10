@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.TarefaRequestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.TarefaService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +24,14 @@ public class TarefaController {
     TarefaService tarefaService;
 
     @PostMapping(value = "/tarefa")
-    public void inserirPessoa(@RequestBody TarefaRequestDTO objetoDto) {
+    public ResponseEntity<String> inserirTarefa(@Valid @RequestBody TarefaRequestDTO objetoDto) {
         tarefaService.cadastrarTarefa(objetoDto);
+        return ResponseEntity.ok("Tarefa Registrada com sucesso");
     }
     
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deletarTarefa(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletarTarefa(@PathVariable Integer id) {
         tarefaService.deletarTarefa(id);
-        return ResponseEntity.ok("Tarefa Deletada com sucesso!");
+        return ResponseEntity.noContent().build();
     }
 }

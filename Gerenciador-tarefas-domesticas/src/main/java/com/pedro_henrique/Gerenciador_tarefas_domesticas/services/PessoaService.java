@@ -21,6 +21,7 @@ public class PessoaService {
     @Transactional
     public void cadastrarPessoa(PessoaDTO objeto) {
         Pessoa entity = new Pessoa(objeto.getId(), objeto.getName(), objeto.getAge());
+       
         pessoaRepository.save(entity);
     }
 
