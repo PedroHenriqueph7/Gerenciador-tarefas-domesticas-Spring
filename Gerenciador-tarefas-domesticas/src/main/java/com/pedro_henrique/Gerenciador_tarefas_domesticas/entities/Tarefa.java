@@ -1,7 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.PriorityTarefa;
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.StatusTarefa;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.PriorityTarefa;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.StatusTarefa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

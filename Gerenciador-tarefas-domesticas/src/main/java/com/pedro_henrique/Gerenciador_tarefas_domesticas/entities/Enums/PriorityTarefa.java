@@ -1,4 +1,4 @@
-package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums;
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums;
 
 public enum PriorityTarefa {
     ALTA,

@@ -16,6 +16,8 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
     // Tipo do Retorno /  atributos da classe modelo
     //Tarefa findByTask_name(String task_name);
 
+   // List<TarefasResponseDTO> findAllByOrderByPriorityTarefaAsc();
+
     // Consultas personalizadas por meio de Querys em SQL ou JPQL
     //@Query(value = "SELECT * FROM tb_pessoa WHERE name = :name", nativeQuery = true)
     //Pessoa buscarPorName(@Param("name") String name);
@@ -45,4 +47,24 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
             FROM Tarefa t WHERE t.statusTarefa = 'PENDENTE'
     """)
     List<TarefasResponseDTO> tarefasPendentes();
+
+   // No seu Repository
+    @Query("""
+        SELECT new com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO(
+            t.id, 
+            t.task_name, 
+            t.priorityTarefa, 
+            t.statusTarefa, 
+            t.responsible, 
+            t.category
+        ) 
+        FROM Tarefa t
+        ORDER BY CASE 
+            WHEN t.priorityTarefa = com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.PriorityTarefa.ALTA  THEN 1
+            WHEN t.priorityTarefa = com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.PriorityTarefa.MEDIA THEN 2
+            WHEN t.priorityTarefa = com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.PriorityTarefa.BAIXA THEN 3
+            ELSE 4
+        END
+    """)
+    List<TarefasResponseDTO> findAllOrderByTarefaPriority();
 }

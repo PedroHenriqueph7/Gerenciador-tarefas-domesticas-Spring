@@ -74,5 +74,9 @@ public class TarefaService {
         return tarefasDTO;
     }
 
-    
+    @Transactional(readOnly = true)
+    public List<TarefasResponseDTO> tarefasPorPrioridade() {
+
+        return tarefaRepository.findAllOrderByTarefaPriority();
+    }
 }

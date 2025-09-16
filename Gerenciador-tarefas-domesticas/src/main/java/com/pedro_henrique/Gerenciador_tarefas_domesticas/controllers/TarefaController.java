@@ -51,4 +51,9 @@ public class TarefaController {
     public List<TarefasResponseDTO> tarefasPendentes() {
         return tarefaService.tarefasPendentes();
     }
+
+    @GetMapping
+    public List<TarefasResponseDTO> tarefasPorPrioriodade() {
+        return tarefaService.tarefasPorPrioridade();
+    }
 }
