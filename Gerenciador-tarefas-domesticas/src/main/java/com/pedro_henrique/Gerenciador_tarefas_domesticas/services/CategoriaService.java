@@ -3,7 +3,7 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.CategoriaResquestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.CategoriaResquestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.CategoriaTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.CategoriaTarefaRepository;
 

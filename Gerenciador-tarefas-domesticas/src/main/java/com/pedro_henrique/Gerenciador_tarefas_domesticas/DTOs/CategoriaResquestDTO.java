@@ -1,4 +1,4 @@
-package com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs;
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos;
 
 
 import jakarta.validation.constraints.NotBlank;

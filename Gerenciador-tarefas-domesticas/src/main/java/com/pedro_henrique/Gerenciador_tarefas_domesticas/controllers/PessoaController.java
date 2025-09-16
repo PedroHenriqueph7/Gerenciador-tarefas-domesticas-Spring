@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaDTO;
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaResponseDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaRequestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.PessoaService;
 
 import jakarta.validation.Valid;
@@ -30,7 +30,7 @@ public class PessoaController {
     PessoaService pessoaService;
 
     @PostMapping(value = "/pessoa")
-    public ResponseEntity<String> inserirPessoa(@Valid @RequestBody  PessoaDTO objetoBody) {
+    public ResponseEntity<String> inserirPessoa(@Valid @RequestBody  PessoaRequestDTO objetoBody) {
         pessoaService.cadastrarPessoa(objetoBody);
         return ResponseEntity.ok().body("Morador Cadastrado com sucesso");
 

@@ -1,4 +1,4 @@
-package com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs;
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.PriorityTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Enums.StatusTarefa;

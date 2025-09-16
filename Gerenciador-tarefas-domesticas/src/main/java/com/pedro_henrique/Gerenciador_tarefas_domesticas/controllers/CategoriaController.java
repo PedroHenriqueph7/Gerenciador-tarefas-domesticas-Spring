@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.CategoriaResquestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.CategoriaResquestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.CategoriaService;
 
 import jakarta.validation.Valid;

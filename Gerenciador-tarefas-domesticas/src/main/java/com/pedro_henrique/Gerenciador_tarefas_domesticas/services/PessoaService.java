@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaDTO;
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.PessoaResponseDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaRequestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.PessoaNaoEncontradaException;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.PessoaRepository;
@@ -19,7 +19,7 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     @Transactional
-    public void cadastrarPessoa(PessoaDTO objeto) {
+    public void cadastrarPessoa(PessoaRequestDTO objeto) {
         Pessoa entity = new Pessoa(objeto.getId(), objeto.getName(), objeto.getAge());
        
         pessoaRepository.save(entity);

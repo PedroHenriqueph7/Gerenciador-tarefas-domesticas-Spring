@@ -1,4 +1,4 @@
-package com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs;
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PessoaDTO {
+public class PessoaRequestDTO {
     
     private Integer id;
     @NotBlank(message = "O nome é obrigátorio")

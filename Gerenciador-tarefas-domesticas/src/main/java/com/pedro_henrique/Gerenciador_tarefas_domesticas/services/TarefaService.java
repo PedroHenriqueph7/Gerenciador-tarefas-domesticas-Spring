@@ -1,9 +1,12 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.pedro_henrique.Gerenciador_tarefas_domesticas.DTOs.TarefaRequestDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaRequestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.CategoriaTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Tarefa;
@@ -14,19 +17,18 @@ import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.CategoriaT
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.PessoaRepository;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.TarefaRepository;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class TarefaService {
     
-    @Autowired
-    TarefaRepository tarefaRepository;
+    private final TarefaRepository tarefaRepository;
+    private final PessoaRepository pessoaRepository;
+    private final CategoriaTarefaRepository categoriaTarefaRepository;
 
-    @Autowired
-    PessoaRepository pessoaRepository;
-
-    @Autowired
-    CategoriaTarefaRepository categoriaTarefaRepository;
+    public TarefaService(TarefaRepository tarefaRepository, PessoaRepository pessoaRepository, CategoriaTarefaRepository categoriaTarefaRepository){
+        this.tarefaRepository = tarefaRepository;
+        this.pessoaRepository = pessoaRepository;
+        this.categoriaTarefaRepository = categoriaTarefaRepository;
+    }
 
     @Transactional
     public void cadastrarTarefa(TarefaRequestDTO dto){
@@ -55,5 +57,12 @@ public class TarefaService {
         .orElseThrow(() -> new TarefaNaoEncontradaException());
 
         tarefaRepository.deleteById(tarefa.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<TarefasResponseDTO> tarefasConcluida() {
+
+        List<TarefasResponseDTO> tarefasDTO = tarefaRepository.tarefasConcluidas();
+        return tarefasDTO;
     }
 }
