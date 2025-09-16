@@ -46,4 +46,9 @@ public class TarefaController {
     public List<TarefasResponseDTO> tarefasConcluida() {
         return tarefaService.tarefasConcluida();
     }
+
+    @GetMapping(value = "/pendentes")
+    public List<TarefasResponseDTO> tarefasPendentes() {
+        return tarefaService.tarefasPendentes();
+    }
 }

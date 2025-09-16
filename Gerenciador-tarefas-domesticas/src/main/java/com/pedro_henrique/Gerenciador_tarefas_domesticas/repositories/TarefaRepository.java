@@ -21,15 +21,28 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
     //Pessoa buscarPorName(@Param("name") String name);
 
     @Query(value = """
-    SELECT new com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO(
-    t.id, 
-    t.task_name, 
-    t.priorityTarefa, 
-    t.statusTarefa, 
-    t.responsible, 
-    t.category
-    )
-     FROM Tarefa t WHERE t.statusTarefa = 'CONCLUIDA'
+            SELECT new com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO(
+                t.id, 
+                t.task_name, 
+                t.priorityTarefa, 
+                t.statusTarefa, 
+                t.responsible, 
+                t.category
+            )
+            FROM Tarefa t WHERE t.statusTarefa = 'CONCLUIDA'
     """)
     List<TarefasResponseDTO> tarefasConcluidas();
+
+    @Query(value = """
+            SELECT new com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO(
+                t.id,
+                t.task_name,
+                t.priorityTarefa, 
+                t.statusTarefa, 
+                t.responsible, 
+                t.category
+            )
+            FROM Tarefa t WHERE t.statusTarefa = 'PENDENTE'
+    """)
+    List<TarefasResponseDTO> tarefasPendentes();
 }

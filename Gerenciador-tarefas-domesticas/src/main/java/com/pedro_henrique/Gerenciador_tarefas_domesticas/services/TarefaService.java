@@ -65,4 +65,14 @@ public class TarefaService {
         List<TarefasResponseDTO> tarefasDTO = tarefaRepository.tarefasConcluidas();
         return tarefasDTO;
     }
+
+    
+    @Transactional(readOnly = true)
+    public List<TarefasResponseDTO> tarefasPendentes() {
+
+        List<TarefasResponseDTO> tarefasDTO = tarefaRepository.tarefasPendentes();
+        return tarefasDTO;
+    }
+
+    
 }
