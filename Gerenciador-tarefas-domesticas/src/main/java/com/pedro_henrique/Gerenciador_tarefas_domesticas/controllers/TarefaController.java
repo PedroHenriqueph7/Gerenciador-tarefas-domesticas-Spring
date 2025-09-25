@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -55,5 +56,17 @@ public class TarefaController {
     @GetMapping
     public List<TarefasResponseDTO> tarefasPorPrioriodade() {
         return tarefaService.tarefasPorPrioridade();
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<String> agruparResponsavelATarefa(@PathVariable Integer id, @RequestBody TarefaRequestDTO novoResponsavelDTO) {
+        tarefaService.associarUsuarioATarefa(id, novoResponsavelDTO);
+        return ResponseEntity.ok("Responsavel Associada a Tarefa com sucesso!");
+    }
+
+    @PatchMapping(value = "/{id}/status")
+    public ResponseEntity<String> marcarComoConcluida(@PathVariable Integer id, @RequestBody TarefaRequestDTO novoStatus) {
+        tarefaService.marcarTarefaComoConcluida(id,novoStatus);
+        return ResponseEntity.ok("Tarefa Concluida");
     }
 }

@@ -43,7 +43,7 @@ public class Tarefa {
     private StatusTarefa statusTarefa;
 
     @ManyToOne
-    @JoinColumn(name = "responsible_id", nullable = false)
+    @JoinColumn(name = "responsible_id")
     private Pessoa responsible;
 
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class PessoaRequestDTO {
     
     private Integer id;
+    
     @NotBlank(message = "O nome é obrigátorio")
     private String name;
 

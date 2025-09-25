@@ -79,4 +79,28 @@ public class TarefaService {
 
         return tarefaRepository.findAllOrderByTarefaPriority();
     }
+
+    @Transactional
+    public void associarUsuarioATarefa(Integer id, TarefaRequestDTO novoResponsavelDTO) {
+
+        Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new TarefaNaoEncontradaException());
+
+        int idNovoUsuario = novoResponsavelDTO.getResponsible_id();
+        Pessoa responsavel = pessoaRepository.findById(idNovoUsuario).orElseThrow(() -> new PessoaNaoEncontradaException());
+        
+        tarefa.setResponsible(responsavel);
+
+        tarefaRepository.save(tarefa);
+    }
+
+    @Transactional
+    public void marcarTarefaComoConcluida(Integer id, TarefaRequestDTO novoStatus) {
+
+        Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new TarefaNaoEncontradaException());
+
+        tarefa.setStatusTarefa(novoStatus.getStatusTarefa());
+
+        tarefaRepository.save(tarefa);
+    }
+
 }

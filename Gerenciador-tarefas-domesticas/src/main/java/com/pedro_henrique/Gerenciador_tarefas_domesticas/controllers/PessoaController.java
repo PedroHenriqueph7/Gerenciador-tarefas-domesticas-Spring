@@ -2,7 +2,6 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -26,9 +25,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping(value = "/pessoas")
 public class PessoaController {
     
-    @Autowired
-    PessoaService pessoaService;
-
+    
+    private final PessoaService pessoaService;
+    
+    public PessoaController(PessoaService pessoaService) {
+        this.pessoaService = pessoaService;
+    }
+    
     @PostMapping(value = "/pessoa")
     public ResponseEntity<String> inserirPessoa(@Valid @RequestBody  PessoaRequestDTO objetoBody) {
         pessoaService.cadastrarPessoa(objetoBody);

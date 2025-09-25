@@ -21,6 +21,8 @@ public class TarefaRequestDTO {
     private PriorityTarefa priorityTarefa;
     private StatusTarefa statusTarefa;
     private int responsible_id;
+    
+    @NotBlank(message = "O Campo de Categoria é obrigatório")
     private int category_id;
 
 }

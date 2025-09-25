@@ -24,3 +24,4 @@ INSERT INTO tb_tarefa (task_name, priority_tarefa, status_tarefa, responsible_id
 INSERT INTO tb_tarefa (task_name, priority_tarefa, status_tarefa, responsible_id, category_id) VALUES ('Deploy no servidor', 'ALTA', 'PENDENTE', 8, 1);
 INSERT INTO tb_tarefa (task_name, priority_tarefa, status_tarefa, responsible_id, category_id) VALUES ('Correção de bugs', 'MEDIA', 'CONCLUIDA', 9, 2);
 INSERT INTO tb_tarefa (task_name, priority_tarefa, status_tarefa, responsible_id, category_id) VALUES ('Implementar autenticação', 'ALTA', 'PENDENTE', 10, 1);
+INSERT INTO tb_tarefa (task_name, priority_tarefa, status_tarefa, responsible_id, category_id) VALUES ('Planejar tarefas da semana', 'ALTA', 'PENDENTE', null, 1);

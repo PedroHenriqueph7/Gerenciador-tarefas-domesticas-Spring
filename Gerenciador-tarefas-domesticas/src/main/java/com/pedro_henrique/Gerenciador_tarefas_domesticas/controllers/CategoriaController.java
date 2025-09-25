@@ -1,6 +1,5 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping(value = "/categorias")
 public class CategoriaController {
     
-    @Autowired
-    CategoriaService categoriaService;
+    private final CategoriaService categoriaService;
+
+    public CategoriaController(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
+    }
 
     @PostMapping(value = "/categoria")
     public ResponseEntity<String> inserirCategoria(@Valid @RequestBody CategoriaResquestDTO objeto) {
