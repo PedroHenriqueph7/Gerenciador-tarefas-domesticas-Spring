@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.QuantidadeTarefasConcluidasPorResponsavelResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaRequestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.services.TarefaService;
@@ -68,5 +69,10 @@ public class TarefaController {
     public ResponseEntity<String> marcarComoConcluida(@PathVariable Integer id, @RequestBody TarefaRequestDTO novoStatus) {
         tarefaService.marcarTarefaComoConcluida(id,novoStatus);
         return ResponseEntity.ok("Tarefa Concluida");
+    }
+
+    @GetMapping(value = "/concluidas/pessoa")
+    public List<QuantidadeTarefasConcluidasPorResponsavelResponseDTO> quantidadeTarefasConcluidasPorResponsavel() {
+        return tarefaService.quantidadeTarefasConcluidasPorResponsavel();
     }
 }

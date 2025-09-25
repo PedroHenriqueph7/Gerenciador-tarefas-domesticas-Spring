@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.QuantidadeTarefasConcluidasPorResponsavelResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Tarefa;
 
@@ -67,4 +68,15 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
         END
     """)
     List<TarefasResponseDTO> findAllOrderByTarefaPriority();
+
+    @Query("""
+            SELECT new com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.QuantidadeTarefasConcluidasPorResponsavelResponseDTO(
+                t.responsible.name,
+                COUNT(t)
+            )
+            FROM Tarefa t
+            WHERE t.statusTarefa = com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.StatusTarefa.CONCLUIDA
+            GROUP BY t.responsible.name
+            """)
+          List<QuantidadeTarefasConcluidasPorResponsavelResponseDTO> quantidadeTarefasConcluidaResponsavel();  
 }

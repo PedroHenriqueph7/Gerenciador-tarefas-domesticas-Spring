@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.QuantidadeTarefasConcluidasPorResponsavelResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaRequestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefasResponseDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.CategoriaTarefa;
@@ -101,6 +102,11 @@ public class TarefaService {
         tarefa.setStatusTarefa(novoStatus.getStatusTarefa());
 
         tarefaRepository.save(tarefa);
+    }
+
+    @Transactional
+    public List<QuantidadeTarefasConcluidasPorResponsavelResponseDTO> quantidadeTarefasConcluidasPorResponsavel() {
+        return tarefaRepository.quantidadeTarefasConcluidaResponsavel();
     }
 
 }
