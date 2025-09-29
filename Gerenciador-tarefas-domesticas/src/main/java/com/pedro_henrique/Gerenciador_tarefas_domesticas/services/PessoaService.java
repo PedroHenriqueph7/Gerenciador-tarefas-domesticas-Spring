@@ -19,10 +19,12 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     @Transactional
-    public void cadastrarPessoa(PessoaRequestDTO objeto) {
+    public Integer cadastrarPessoa(PessoaRequestDTO objeto) {
         Pessoa entity = new Pessoa(objeto.getId(), objeto.getName(), objeto.getAge());
        
         pessoaRepository.save(entity);
+
+        return objeto.getId();
     }
 
     @Transactional
