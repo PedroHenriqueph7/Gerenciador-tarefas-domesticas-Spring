@@ -1,5 +1,7 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaRequestDTO;
@@ -43,7 +45,7 @@ class PessoaServiceTest {
    private PessoaRepository pessoaRepository;
 
 
-   @Nested //Criando minha subclasse para que fique organizado para aquela funcionalidade o teste
+   @Nested
    class cadastarPessoa {
       @Test
       @DisplayName("Inserindo uma Pessoa no Banco de Dados com sucesso")
@@ -162,6 +164,75 @@ class PessoaServiceTest {
 
       }
 
+      @Test
+      @DisplayName(("Retorna uma pessoa com sucesso pelo seu id"))
+      void deveRetornaPessoaComSucesso() {
+
+         // arrange
+         Integer idValido = 1;
+         Pessoa entityBanco = new Pessoa(1, "Phteste", 29);
+
+         when(pessoaRepository.findById(idValido)).thenReturn(Optional.of(entityBanco));
+
+         // act
+         PessoaResponseDTO outputDto = pessoaService.buscarPessoaPeloId(idValido);
+         //assert
+         assertNotNull(outputDto);
+         assertEquals(idValido, outputDto.id());
+         assertEquals(entityBanco.getName(), outputDto.name());
+         assertEquals(entityBanco.getAge(), outputDto.age());
+
+         // Verifique se a interação com o mock realmente aconteceu como esperado.
+         verify(pessoaRepository, times(1)).findById(idValido);
+      }
+   }
+
+   @Nested
+   class buscarPessoas {
+
+      @Test
+      @DisplayName("Deve retornar uma lista de pessoas com sucesso")
+      void deveRetornarListPessoaComSucesso() {
+
+         //arrange
+         List<Pessoa> pessoasBancoList = List.of(
+                                                   new Pessoa(1, "name1", 29),
+                                                   new Pessoa(2, "name2", 30),
+                                                   new Pessoa(3, "name3", 32)
+                                                );
+         when(pessoaRepository.findAll()).thenReturn(pessoasBancoList);
+
+         int pessoasBancoListSize = pessoasBancoList.size();
+         // act
+         List<PessoaResponseDTO> outputList = pessoaService.buscarPessoas();
+         // assert
+
+         assertNotNull(outputList);
+         assertEquals(pessoasBancoListSize, outputList.size());
+
+         Pessoa pessoaEntrada = pessoasBancoList.get(0);
+         PessoaResponseDTO pessoaSaida = outputList.get(0);
+
+         assertEquals(pessoaEntrada.getId(), pessoaSaida.id());
+         assertEquals(pessoaEntrada.getName(), pessoaSaida.name());
+         assertEquals(pessoaEntrada.getAge(), pessoaSaida.age());
+      }
+
+      // Este teste é importante pois garante que caso a lista estiver vazia no meu banco ele retornar uma lista vazia e não um null que quebraria meu contrato com API gerando uma exceção
+      @Test
+      @DisplayName("Deve retornar uma lista vazia")
+      void deveRetornarUmaListaVazia() {
+
+         // arrange
+         when(pessoaRepository.findAll()).thenReturn(Collections.emptyList());
+
+         // act
+         List<PessoaResponseDTO> outputList = pessoaService.buscarPessoas();
+
+         // assert
+          assertNotNull(outputList, "A lista nunca deve ser nula, mesmo que vazia.");
+          assertTrue(outputList.isEmpty(), "A lista deve estar vazia quando o repositório não retorna dados.");
+      }
    }
 
 }
