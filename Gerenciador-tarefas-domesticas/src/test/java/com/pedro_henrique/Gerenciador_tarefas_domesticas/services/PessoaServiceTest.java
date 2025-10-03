@@ -1,0 +1,167 @@
+package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
+
+import java.util.Optional;
+
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaRequestDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.PessoaResponseDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.PessoaNaoEncontradaException;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.PessoaRepository;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+
+@ExtendWith(MockitoExtension.class) // nós estampos permitindo o Junit utilizar o mockito
+class PessoaServiceTest {
+   
+   // Utilizaremos o padrão tripo whei
+      // Todo teste nosso precisa passar por 3 passos
+      // arrange -> Primeiro ele ira arrumar, organizar tudo o que precisa para o seu teste
+      // act -> Depois ele ira a chamar o trecho que de fato iremos testar
+      // assert -> Por fim iremos fazer todas as verificações se ele executor como tinha que executar se ele chamou todos os parametros necessários no momento do test
+
+   @InjectMocks
+   private PessoaService pessoaService;
+
+   @Captor
+   private ArgumentCaptor<Pessoa> pessoaArgumentCaptor;
+
+   @Captor
+   private ArgumentCaptor<Integer> idValidoArgumentCaptor;
+
+   @Mock
+   private PessoaRepository pessoaRepository;
+
+
+   @Nested //Criando minha subclasse para que fique organizado para aquela funcionalidade o teste
+   class cadastarPessoa {
+      @Test
+      @DisplayName("Inserindo uma Pessoa no Banco de Dados com sucesso")
+      void criaPessoaComSucesso() {
+
+         //arrange
+
+         // O DTO que chega na sua service
+         PessoaRequestDTO input = new PessoaRequestDTO(1, "PhTeste", 29);
+
+         // O objeto que o mock do repository vai retornar quando 'save' for chamado
+         Pessoa entity = new Pessoa(1, "PhTeste", 29);
+
+         // Configurando o mock // utilizamos ArgumentCaptor para capturar as informações passadas no Return
+         doReturn(entity).when(pessoaRepository).save(pessoaArgumentCaptor.capture());
+
+         //act
+         // Chame o método que você quer testar e armazene o resultado
+         Integer output = pessoaService.cadastrarPessoa(input);
+
+         //assert
+         assertNotNull(output);
+
+         Pessoa pessoaCaptured = pessoaArgumentCaptor.getValue();
+         assertEquals(input.getId(), pessoaCaptured.getId());
+         assertEquals(input.getName(), pessoaCaptured.getName());
+         assertEquals(input.getAge(), pessoaCaptured.getAge());
+      }
+
+      @Test
+      @DisplayName("Devera lancar uma excecao quando algum erro acontecer")
+      void deveLancarExcecaoQuandoAlgumErroAcontecer() {
+         // arrange
+         PessoaRequestDTO input = new PessoaRequestDTO(2, "PhtesteFalha",20);
+
+         doThrow(NullPointerException.class).when(pessoaRepository).save(any(Pessoa.class));
+         //act & assert
+         assertThrows(NullPointerException.class, () ->pessoaService.cadastrarPessoa(input)) ;
+
+      }
+   }
+
+   @Nested
+   class deletarPessoa {
+
+      @Test
+      @DisplayName("lançar a exceção quando a pessoa não for encontrada")
+      void lancarExcecaoPessoaNaoEncontrada() {
+
+         // arrange
+         Integer idInexistente = 99;
+
+         when(pessoaRepository.findById(idInexistente)).thenReturn(Optional.empty());
+         // act & assert
+         assertThrows(PessoaNaoEncontradaException.class, () -> pessoaService.deletarPessoa(idInexistente));
+      }
+
+      @Test
+      @DisplayName("Deletar uma pessoa com sucesso atraves do id")
+      void deletarPessoaCOmSucesso() {
+
+         // arrange
+         Integer inputId = 10;
+         Pessoa pessoaExistente = new Pessoa(inputId, "Phteste", 20);
+
+         when(pessoaRepository.findById(inputId)).thenReturn(Optional.of(pessoaExistente));
+
+         // Opcional, mas explícito: Diga ao mock para não fazer nada quando deleteById for chamado.
+         // Mockito já faz isso por padrão para métodos void, mas isso torna a intenção clara.
+         doNothing().when(pessoaRepository).deleteById(anyInt());
+
+         //act
+
+         pessoaService.deletarPessoa(inputId);
+
+         // assert
+
+         // 1. VERIFIQUE se o método deleteById do repositório foi chamado.
+         // 2. CAPTURE o argumento que foi passado para ele.
+        verify(pessoaRepository).deleteById(idValidoArgumentCaptor.capture());
+
+        Integer idCapturado = idValidoArgumentCaptor.getValue();
+
+        assertEquals(inputId, idCapturado);
+      }
+   }
+
+   @Nested
+   class getPessoaId {
+
+      @Test
+      @DisplayName("Deve chamar o repositório com o ID correto")
+      void deveChamarRepositoryComIdCorreto() {
+         // arrange
+         Integer userId = 1;
+
+         when(pessoaRepository.findById(anyInt())).thenReturn(Optional.of(new Pessoa()));
+         // act
+
+         Optional<Pessoa> output = pessoaRepository.findById(userId);
+         // assert
+         verify(pessoaRepository).findById(idValidoArgumentCaptor.capture());
+         assertEquals(userId, idValidoArgumentCaptor.getValue());
+      }
+
+      @Test
+      @DisplayName("Deve lançar exceção ao buscar pessoa com ID inexistente")
+      void deveLancarExceptionAoBuscarPessoaComIdInexistente() {
+         // arrange
+         Integer idInexistente = 99;
+
+         when(pessoaRepository.findById(idInexistente)).thenReturn(Optional.empty());
+
+         // act & assert
+         assertThrows(PessoaNaoEncontradaException.class, () -> pessoaService.buscarPessoaPeloId(idInexistente));
+
+      }
+
+   }
+
+}

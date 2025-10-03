@@ -34,7 +34,6 @@ public class PessoaService {
        .orElseThrow(() -> new PessoaNaoEncontradaException());
 
        pessoaRepository.deleteById(pessoa.getId());
-    
     }
 
     @Transactional(readOnly = true)
@@ -45,5 +44,13 @@ public class PessoaService {
         List<PessoaResponseDTO> objetosList = moradoresList.stream().map(x -> new PessoaResponseDTO(x.getId(), x.getName(), x.getAge())).toList();
 
         return objetosList;
+    }
+
+    public PessoaResponseDTO buscarPessoaPeloId(Integer id) {
+        Pessoa entityPessoa = pessoaRepository.findById(id).orElseThrow(PessoaNaoEncontradaException::new);
+
+        PessoaResponseDTO objetoDto = new PessoaResponseDTO(entityPessoa.getId(), entityPessoa.getName(), entityPessoa.getAge());
+
+        return objetoDto;
     }
 }

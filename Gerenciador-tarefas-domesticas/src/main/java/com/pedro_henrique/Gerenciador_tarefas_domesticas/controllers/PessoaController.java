@@ -49,5 +49,9 @@ public class PessoaController {
     public List<PessoaResponseDTO> buscarPessoas() {
         return pessoaService.buscarPessoas();
     }
-    
+
+    @GetMapping(value = "/{id}")
+    public PessoaResponseDTO buscarPessoaPeloId(@PathVariable Integer id) {
+        return pessoaService.buscarPessoaPeloId(id);
+    }
 }
