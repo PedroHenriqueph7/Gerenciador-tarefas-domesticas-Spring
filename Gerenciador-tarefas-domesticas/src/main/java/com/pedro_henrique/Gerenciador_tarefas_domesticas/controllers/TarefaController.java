@@ -2,6 +2,7 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.controllers;
 
 import java.util.List;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaUpdateStatusDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +67,7 @@ public class TarefaController {
     }
 
     @PatchMapping(value = "/{id}/status")
-    public ResponseEntity<String> marcarComoConcluida(@PathVariable Integer id, @RequestBody TarefaRequestDTO novoStatus) {
+    public ResponseEntity<String> marcarComoConcluida(@PathVariable Integer id, @RequestBody TarefaUpdateStatusDTO novoStatus) {
         tarefaService.marcarTarefaComoConcluida(id,novoStatus);
         return ResponseEntity.ok("Tarefa Concluida");
     }

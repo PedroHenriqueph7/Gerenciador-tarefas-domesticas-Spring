@@ -28,6 +28,7 @@ class PessoaServiceTest {
    
    // Utilizaremos o padrão tripo whei
       // Todo teste nosso precisa passar por 3 passos
+      // Caso comentarmos linhas de códigos em nossos métodos reais e mesmo assim o teste passar isso significa que o teste não esta seguindo seu papel
       // arrange -> Primeiro ele ira arrumar, organizar tudo o que precisa para o seu teste
       // act -> Depois ele ira a chamar o trecho que de fato iremos testar
       // assert -> Por fim iremos fazer todas as verificações se ele executor como tinha que executar se ele chamou todos os parametros necessários no momento do test

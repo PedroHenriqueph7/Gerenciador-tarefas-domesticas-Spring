@@ -2,6 +2,7 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 
 import java.util.List;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaUpdateStatusDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,7 +96,7 @@ public class TarefaService {
     }
 
     @Transactional
-    public void marcarTarefaComoConcluida(Integer id, TarefaRequestDTO novoStatus) {
+    public void marcarTarefaComoConcluida(Integer id, TarefaUpdateStatusDTO novoStatus) {
 
         Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new TarefaNaoEncontradaException());
 
