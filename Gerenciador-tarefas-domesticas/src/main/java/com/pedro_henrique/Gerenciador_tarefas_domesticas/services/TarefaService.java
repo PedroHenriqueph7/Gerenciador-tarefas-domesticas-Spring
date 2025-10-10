@@ -3,6 +3,7 @@ package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 import java.util.List;
 
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaUpdateStatusDTO;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.NomeNaoDeveSerInvalido;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,22 +36,35 @@ public class TarefaService {
     @Transactional
     public void cadastrarTarefa(TarefaRequestDTO dto){
 
-        Pessoa pessoaResponsavel = pessoaRepository.findById(dto.getResponsible_id())
-        .orElseThrow(() -> new PessoaNaoEncontradaException("Responsavel não encontrado")); 
+        boolean nomeValido = true;
 
-        CategoriaTarefa categoriaTarefa = categoriaTarefaRepository.findById(dto.getCategory_id())
-        .orElseThrow(() -> new CategoriaNaoEncontradaException());
+        if (dto.getTask_name() == null || dto.getTask_name().isBlank()) {
+            nomeValido = false;
+        }
 
-        Tarefa tarefa = new Tarefa();
+        if (nomeValido) {
 
-        tarefa.setId(dto.getId());
-        tarefa.setTask_name(dto.getTask_name());
-        tarefa.setPriorityTarefa(dto.getPriorityTarefa());
-        tarefa.setStatusTarefa(dto.getStatusTarefa());
-        tarefa.setResponsible(pessoaResponsavel);
-        tarefa.setCategory(categoriaTarefa);
-        
-        tarefaRepository.save(tarefa);
+            Pessoa pessoaResponsavel = pessoaRepository.findById(dto.getResponsible_id())
+                    .orElseThrow(() -> new PessoaNaoEncontradaException("Responsavel não encontrado"));
+
+            CategoriaTarefa categoriaTarefa = categoriaTarefaRepository.findById(dto.getCategory_id())
+                    .orElseThrow(() -> new CategoriaNaoEncontradaException());
+
+            Tarefa tarefa = new Tarefa();
+
+            tarefa.setId(dto.getId());
+            tarefa.setTask_name(dto.getTask_name());
+            tarefa.setPriorityTarefa(dto.getPriorityTarefa());
+            tarefa.setStatusTarefa(dto.getStatusTarefa());
+            tarefa.setResponsible(pessoaResponsavel);
+            tarefa.setCategory(categoriaTarefa);
+
+            tarefaRepository.save(tarefa);
+
+        } else {
+            throw new NomeNaoDeveSerInvalido();
+        }
+
     }
 
     @Transactional

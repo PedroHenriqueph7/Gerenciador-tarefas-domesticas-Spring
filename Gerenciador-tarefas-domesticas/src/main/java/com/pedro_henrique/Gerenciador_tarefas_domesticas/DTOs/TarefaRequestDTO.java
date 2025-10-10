@@ -4,6 +4,7 @@ import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.Priority
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.StatusTarefa;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class TarefaRequestDTO {
     private StatusTarefa statusTarefa;
     private int responsible_id;
     
-    @NotBlank(message = "O Campo de Categoria é obrigatório")
+    @NotNull(message = "O Campo de id da Categoria é obrigatório")
     private int category_id;
 
 }

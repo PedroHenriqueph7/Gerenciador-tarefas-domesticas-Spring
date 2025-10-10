@@ -82,10 +82,10 @@ public class CategoriaTarefaTest {
         @ValueSource(strings = {" ", "\t", "\n"})
         void deveLancarExceptionNomeInvalido(String nomeInvalido) {
             // arrange
-            CategoriaResquestDTO categoriaInputComNomeNulo = new CategoriaResquestDTO(null, nomeInvalido);
+            CategoriaResquestDTO categoriaInputComNomeInvalido = new CategoriaResquestDTO(null, nomeInvalido);
 
             // act & assert
-            assertThrows(NomeNaoDeveSerInvalido.class, () ->categoriaService.cadastrarCategoria(categoriaInputComNomeNulo));
+            assertThrows(NomeNaoDeveSerInvalido.class, () ->categoriaService.cadastrarCategoria(categoriaInputComNomeInvalido));
         }
     }
 }

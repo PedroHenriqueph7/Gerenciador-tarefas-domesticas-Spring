@@ -51,11 +51,10 @@ class PessoaServiceTest {
       @Test
       @DisplayName("Inserindo uma Pessoa no Banco de Dados com sucesso")
       void criaPessoaComSucesso() {
-
          //arrange
 
          // O DTO que chega na sua service
-         PessoaRequestDTO input = new PessoaRequestDTO(1, "PhTeste", 29);
+         PessoaRequestDTO input = new PessoaRequestDTO(null, "PhTeste", 29);
 
          // O objeto que o mock do repository vai retornar quando 'save' for chamado
          Pessoa entity = new Pessoa(1, "PhTeste", 29);
@@ -65,13 +64,10 @@ class PessoaServiceTest {
 
          //act
          // Chame o método que você quer testar e armazene o resultado
-         Integer output = pessoaService.cadastrarPessoa(input);
-
-         //assert
-         assertNotNull(output);
+          pessoaService.cadastrarPessoa(input);
 
          Pessoa pessoaCaptured = pessoaArgumentCaptor.getValue();
-         assertEquals(input.getId(), pessoaCaptured.getId());
+
          assertEquals(input.getName(), pessoaCaptured.getName());
          assertEquals(input.getAge(), pessoaCaptured.getAge());
       }
@@ -80,7 +76,7 @@ class PessoaServiceTest {
       @DisplayName("Devera lancar uma excecao quando algum erro acontecer")
       void deveLancarExcecaoQuandoAlgumErroAcontecer() {
          // arrange
-         PessoaRequestDTO input = new PessoaRequestDTO(2, "PhtesteFalha",20);
+         PessoaRequestDTO input = new PessoaRequestDTO(null, "PhtesteFalha",20);
 
          doThrow(NullPointerException.class).when(pessoaRepository).save(any(Pessoa.class));
          //act & assert

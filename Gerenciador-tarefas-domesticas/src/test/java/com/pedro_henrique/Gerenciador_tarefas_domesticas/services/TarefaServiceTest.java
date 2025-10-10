@@ -1,17 +1,26 @@
 package com.pedro_henrique.Gerenciador_tarefas_domesticas.services;
 
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaRequestDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.dtos.TarefaUpdateStatusDTO;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.CategoriaTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Pessoa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.Tarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.PriorityTarefa;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.entities.enums.StatusTarefa;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.CategoriaNaoEncontradaException;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.NomeNaoDeveSerInvalido;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.PessoaNaoEncontradaException;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.exceptions.TarefaNaoEncontradaException;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.CategoriaTarefaRepository;
+import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.PessoaRepository;
 import com.pedro_henrique.Gerenciador_tarefas_domesticas.repositories.TarefaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -34,7 +43,98 @@ public class TarefaServiceTest {
     ArgumentCaptor<Tarefa> tarefaArgumentCaptor;
 
     @Mock
+    PessoaRepository pessoaRepository;
+
+    @Mock
+    CategoriaTarefaRepository categoriaTarefaRepository;
+
+    @Mock
     TarefaRepository tarefaRepository;
+
+    @Nested
+    class cadastrarTarefa {
+
+        @Test
+        @DisplayName("deve realizar o cadastro de tarefa com sucesso")
+        void cadastrarTarefaComSucesso() {
+
+            // arrange
+            TarefaRequestDTO tarefaInput = new TarefaRequestDTO(null, "Compras do Mes", PriorityTarefa.ALTA, StatusTarefa.CONCLUIDA, 1, 2);
+
+            Pessoa responsavel = new Pessoa(tarefaInput.getResponsible_id(), "Nome", 32);
+            CategoriaTarefa categoria = new CategoriaTarefa(tarefaInput.getCategory_id(), "NomeCategoria", null);
+
+            Tarefa tarefaParaSalvarBanco = new Tarefa(null, "Compras do Mes", PriorityTarefa.ALTA, StatusTarefa.CONCLUIDA, responsavel, categoria);
+
+
+            when(pessoaRepository.findById(tarefaInput.getResponsible_id())).thenReturn(Optional.of(responsavel));
+
+            when(categoriaTarefaRepository.findById(tarefaInput.getCategory_id())).thenReturn(Optional.of(categoria));
+
+            when(tarefaRepository.save(tarefaParaSalvarBanco)).thenReturn(any(Tarefa.class));
+
+            // act
+            tarefaService.cadastrarTarefa(tarefaInput);
+            // assert
+
+            verify(tarefaRepository, times(1)).save(tarefaArgumentCaptor.capture());
+
+            Tarefa tarefaPassadaParaSalvar = tarefaArgumentCaptor.getValue();
+
+            assertNull(tarefaPassadaParaSalvar.getId());
+            assertEquals(tarefaInput.getTask_name(), tarefaPassadaParaSalvar.getTask_name());
+            assertEquals(tarefaInput.getResponsible_id(), tarefaPassadaParaSalvar.getResponsible().getId());
+            assertEquals(tarefaInput.getCategory_id(), tarefaPassadaParaSalvar.getCategory().getId());
+
+
+        }
+
+        @Test
+        @DisplayName("Deve lancar a exception de responsavel nao encontrado")
+        void deveLancarExceptionResponsavelNaoEncontrado() {
+            // arrange
+            TarefaRequestDTO tarefaInput = new TarefaRequestDTO(null, "Compras do Mes", PriorityTarefa.ALTA, StatusTarefa.CONCLUIDA, 1, 2);
+
+            when(pessoaRepository.findById(tarefaInput.getResponsible_id())).thenReturn(Optional.empty());
+
+            // act & assert
+
+            assertThrows(PessoaNaoEncontradaException.class, () -> tarefaService.cadastrarTarefa(tarefaInput));
+            verify(tarefaRepository, never()).save(any(Tarefa.class));
+
+        }
+
+        @Test
+        @DisplayName("Deve lancar a exception de categoria nao encontrada")
+        void deveLancarExceptionCategoriaNaoEncontrado() {
+
+            // arrange
+            TarefaRequestDTO tarefaInput = new TarefaRequestDTO(null, "TarefaTeste", PriorityTarefa.ALTA, StatusTarefa.PENDENTE, 1,20);
+
+            Pessoa responsavel = new Pessoa(1, "PessoaTeste", 29);
+            when(pessoaRepository.findById(tarefaInput.getResponsible_id())).thenReturn(Optional.of(responsavel));
+            when(categoriaTarefaRepository.findById(tarefaInput.getCategory_id())).thenReturn(Optional.empty());
+            // act & assert
+
+            assertThrows(CategoriaNaoEncontradaException.class, () -> tarefaService.cadastrarTarefa(tarefaInput));
+            verify(tarefaRepository, never()).save(any(Tarefa.class));
+        }
+
+
+        @DisplayName("deve lancar uma exception quando o nome for invalido")
+        @ParameterizedTest
+        @NullAndEmptySource
+        @ValueSource(strings = {" ", "\t", "\n"})
+        void deveLancarExceptionNomeInvalido(String nomeInvalido) {
+
+            // arrange
+            TarefaRequestDTO tarefaInputComNomeInvalido = new TarefaRequestDTO(null, nomeInvalido, PriorityTarefa.ALTA, StatusTarefa.PENDENTE, 1, 4);
+
+            // act & assert
+
+            assertThrows(NomeNaoDeveSerInvalido.class, () -> tarefaService.cadastrarTarefa(tarefaInputComNomeInvalido));
+        }
+    }
 
     @Nested
     class deleteTarefaPeloId {

@@ -34,9 +34,8 @@ public class PessoaController {
     
     @PostMapping(value = "/pessoa")
     public ResponseEntity<String> inserirPessoa(@Valid @RequestBody  PessoaRequestDTO objetoBody) {
-        Integer returnID = pessoaService.cadastrarPessoa(objetoBody);
+        pessoaService.cadastrarPessoa(objetoBody);
         return ResponseEntity.ok().body("Morador Cadastrado com sucesso");
-
     }
 
     @DeleteMapping(value = "/{id}")
