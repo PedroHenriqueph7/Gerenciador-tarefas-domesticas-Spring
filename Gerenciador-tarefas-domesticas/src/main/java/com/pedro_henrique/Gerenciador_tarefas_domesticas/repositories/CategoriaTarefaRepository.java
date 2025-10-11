@@ -8,8 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface CategoriaTarefaRepository extends JpaRepository<CategoriaTarefa, Integer> {
 
-    @Query(value = """
-    SELECT EXISTS(SELECT 1 FROM CategoriaTarefa ct WHERE UPPER(FUNCTION('unaccent', ct.category_name)) = UPPER(FUNCTION('unaccent', :name))) As nome_exist
-    """)
+    @Query("""
+    SELECT COUNT(ct) > 0 
+    FROM CategoriaTarefa ct 
+    WHERE UPPER(FUNCTION('unaccent', ct.category_name)) = UPPER(FUNCTION('unaccent', :name))
+""")
     boolean existsCategoria(@Param("name") String name);
 }

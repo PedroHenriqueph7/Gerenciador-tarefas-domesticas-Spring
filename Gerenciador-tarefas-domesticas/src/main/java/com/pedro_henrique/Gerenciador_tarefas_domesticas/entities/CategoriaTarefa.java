@@ -35,9 +35,5 @@ public class CategoriaTarefa {
 
     @Column(nullable = false, unique = true)
     private String category_name;
-                                              // Definimos apenas permissões de escrita
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private Set<Tarefa> tarefas = new HashSet<>();
 
 }
