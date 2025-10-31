@@ -43,14 +43,17 @@ src/
 ├─ main/
 │  ├─ java/com/exemplo/tarefas/
 │  │   ├─ controller/    # Endpoints REST
+|  |   |─ dtos           # Objetos de transferência de dados
 │  │   ├─ service/       # Lógica de negócio
 │  │   ├─ repository/    # Repositórios JPA
 │  │   ├─ model/         # Entidades do banco
-│  │   └─ dto/           # Objetos de transferência de dados
+|  |   |  └─ enums/      # Enumeradores
+|  |   ├─ exceptions/    # Definição de exceptions(erros)
+│  │   └─ infra/         # Configuração de captura de erros na aplicação     
 │  └─ resources/
 │      ├─ application.properties # Configurações
 │      └─ data.sql / schema.sql   # Scripts opcionais de banco
 └─ test/
-└─ java/    # Testes unitários e de integração
+└─ java/    # Testes unitários
 
 ```
