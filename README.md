@@ -52,7 +52,7 @@ src/
 │  │   └─ infra/         # Configuração de captura de erros na aplicação     
 │  └─ resources/
 │      ├─ application.properties # Configurações
-│      └─ data.sql / schema.sql   # Scripts opcionais de banco
+│      └─ import.sql   # Scripts opcionais de banco
 └─ test/
 └─ java/    # Testes unitários
 
