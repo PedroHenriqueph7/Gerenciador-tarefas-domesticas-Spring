@@ -19,8 +19,6 @@ Backend em **Java** utilizando **Spring Boot**, **Spring Data JPA** e API REST e
 - Listagem de tarefas concluídas por responsável  
 - Atualização de responsável das tarefas  
 - Filtragem de tarefas por status (Concluída ou Pendente)  
-- Gerenciamento de usuários  
-- Persistência de dados em banco relacional (H2/PostgreSQL)
 
 
 
@@ -34,6 +32,7 @@ Backend em **Java** utilizando **Spring Boot**, **Spring Data JPA** e API REST e
 - Maven
 - JUnit 5
 - Lombok
+- Mockito
 - JSON
 
 
